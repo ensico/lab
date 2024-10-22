@@ -1,0 +1,114 @@
+{
+    "toolbar": [
+        {
+            "name": "save",
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 10
+        },
+        {
+            "name": "insert",
+            "args": {},
+            "command": "notebook:insert-cell-below",
+            "disabled": true,
+            "icon": "ui-components:add",
+            "rank": 20
+        },
+        {
+            "name": "delete-cell",
+            "args": {},
+            "command": "notebook:delete-cell",
+            "disabled": true,
+            "rank": 20,
+            "icon": "ui-components:delete"
+        },
+        {
+            "name": "cut",
+            "args": {},
+            "command": "notebook:cut-cell",
+            "disabled": true,
+            "rank": 21
+        },
+        {
+            "name": "copy",
+            "args": {},
+            "command": "notebook:copy-cell",
+            "disabled": true,
+            "rank": 22
+        },
+        {
+            "name": "paste",
+            "args": {},
+            "command": "notebook:paste-cell-below",
+            "disabled": true,
+            "rank": 23
+        },
+        {
+            "name": "run",
+            "args": {},
+            "command": "runmenu:run",
+            "disabled": false,
+            "rank": 30
+        },
+        {
+            "name": "interrupt",
+            "args": {},
+            "command": "kernelmenu:interrupt",
+            "disabled": false,
+            "rank": 31
+        },
+        {
+            "name": "restart",
+            "args": {},
+            "command": "kernelmenu:restart",
+            "disabled": true,
+            "rank": 32
+        },
+        {
+            "name": "restart-and-run",
+            "args": {},
+            "command": "runmenu:restart-and-run-all",
+            "disabled": false,
+            "rank": 33
+        },
+        {
+            "name": "cellType",
+            "args": {},
+            "command": "",
+            "disabled": true,
+            "type": "spacer",
+            "rank": 40
+        },
+        {
+            "name": "spacer",
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 100,
+            "type": "spacer"
+        },
+        {
+            "name": "kernelName",
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 1000,
+            "type": "spacer"
+        },
+        {
+            "name": "kernelStatus",
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 1001
+        },
+        {
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 1002,
+            "name": "executionProgress"
+        }
+    ]
+}

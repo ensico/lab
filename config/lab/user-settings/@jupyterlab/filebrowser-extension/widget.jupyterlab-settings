@@ -1,0 +1,32 @@
+{
+    "toolbar": [
+        {
+            "name": "new-launcher",
+            "args": {},
+            "command": "filebrowser:create-main-launcher",
+            "disabled": false,
+            "rank": 1
+        },
+        {
+            "name": "new-directory",
+            "args": {},
+            "command": "filebrowser:create-new-directory",
+            "disabled": true,
+            "rank": 10
+        },
+        {
+            "name": "uploader",
+            "args": {},
+            "command": "",
+            "disabled": false,
+            "rank": 20
+        },
+        {
+            "name": "refresh",
+            "args": {},
+            "command": "filebrowser:refresh",
+            "disabled": true,
+            "rank": 30
+        }
+    ]
+}
