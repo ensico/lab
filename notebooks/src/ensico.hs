@@ -51,6 +51,8 @@ infixr 0 <| -- right associative
 
 -- Basic -----------------------------------
 
+mul = uncurry (*)
+
 (f `is` v) x = (f x) == v
 
 (f `belongs` v) x = (f x) `elem` v
@@ -437,3 +439,18 @@ ibm029 = a029 ++ b029 ++ c029 ++ d029 ++ e029 ++ f029 ++ g029 ++ h029
                h029 = zip [',','%','_','>','?',' '] $ zip3 (replicate 6 0) [Just 2, Just 3, Just 4, Just 5, Just 6, Just 7] (replicate 6 (Just 8))
 
 pcm029 msg = msg |> map toUpper |> map (lkp ibm029) |> zip msg
+
+--- códigos de barras
+
+mod10 = flip mod 10
+produto = uncurry (*)
+
+bRule 0 = "\\hskip{0.5mm}"
+bRule x = "\\rule[0mm]{0.5mm}{30mm}"
+
+nRule 0 = "\\hskip{0.5mm}"
+nRule x = "\\rule[5mm]{0.5mm}{25mm}"
+
+bcTeX x = putStrLn("$" ++ (x >>= nRule) ++ "$")
+bcTeX' xs = putStrLn("$" ++ ([1,0,1] >>= bRule) ++ (x >>= nRule) ++ ([0,1,0,1,0] >>= bRule) ++ (y >>= nRule) ++ ([1,0,1] >>= bRule) ++ "$")
+           where (x,y) = splitAt (length xs `div` 2) xs
