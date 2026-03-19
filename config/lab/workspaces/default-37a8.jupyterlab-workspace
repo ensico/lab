@@ -11,6 +11,15 @@
         },
         "current": "notebook:lab-notebook.ipynb"
       },
+      "left-sidebar": {
+        "collapsed": true,
+        "widgets": [
+          "filebrowser",
+          "running-sessions",
+          "command-palette"
+        ],
+        "current": "filebrowser"
+      }
       "down": {
         "size": 0,
         "widgets": []
@@ -51,7 +60,7 @@
     },
     "notebook:lab-notebook.ipynb": {
       "data": {
-        "path": "./notebooks/lab-notebook.ipynb",
+        "path": "lab-notebook.ipynb",
         "factory": "Notebook"
       }
     }

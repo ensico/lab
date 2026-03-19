@@ -4,7 +4,7 @@
             "name": "new-launcher",
             "args": {},
             "command": "filebrowser:create-main-launcher",
-            "disabled": false,
+            "disabled": true,
             "rank": 1
         },
         {
