@@ -6,10 +6,10 @@
           "type": "tab-area",
           "currentIndex": 0,
           "widgets": [
-            "notebook:index.ipynb",
+            "notebook:lab-notebook.ipynb",
           ]
         },
-        "current": "notebook:index.ipynb"
+        "current": "notebook:lab-notebook.ipynb"
       },
       "down": {
         "size": 0,
@@ -49,9 +49,9 @@
         ]
       }
     },
-    "notebook:index.ipynb": {
+    "notebook:lab-notebook.ipynb": {
       "data": {
-        "path": "index.ipynb",
+        "path": "./notebooks/lab-notebook.ipynb",
         "factory": "Notebook"
       }
     }
