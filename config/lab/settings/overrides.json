@@ -1,5 +1,5 @@
 {
   "@jupyterlab/apputils-extension:notification": {
-    "fetchNews": "false"
+    "fetchNews": false
   }
 }
