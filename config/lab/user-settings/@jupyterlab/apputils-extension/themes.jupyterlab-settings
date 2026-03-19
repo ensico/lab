@@ -1,6 +1,5 @@
 {
     "theme": "JupyterLab Light",
     "theme-scrollbars": false,
-    "notificationsEnabled": false,
     "announcementsEnabled", false
 }
