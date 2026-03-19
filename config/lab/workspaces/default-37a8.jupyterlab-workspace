@@ -6,13 +6,13 @@
           "type": "tab-area",
           "currentIndex": 0,
           "widgets": [
-            "notebook:notebooks/lab-notebook.ipynb"
+            "notebook:lab-notebook.ipynb"
           ]
         },
         "left-sidebar" : {
           "collapsed": true 
         },
-        "current": "notebook:index.ipynb"
+        "current": "notebook:lab-notebook.ipynb"
       },
       "down": {
         "size": 0,
@@ -52,9 +52,9 @@
         ]
       }
     },
-    "notebook:notebooks/lab-notebook.ipynb": {
+    "notebook:lab-notebook.ipynb": {
       "data": {
-        "path": "notebooks/lab-notebook.ipynb",
+        "path": "lab-notebook.ipynb",
         "factory": "Notebook"
       }
     }
