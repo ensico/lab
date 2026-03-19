@@ -12,6 +12,7 @@ chunksOf n x = take n x : chunksOf n (drop n x)
 
 --- avoid the genericity of Data.Foldable ----
 
+_length :: [a] -> Int
 _length [] = 0
 _length (_:x) = 1 + _length x
 
@@ -65,6 +66,8 @@ mul = uncurry (*)
 
 swap(a,b) = (b,a)
 
+(f .|. g) x = (f x, g x)
+
 split f g x = (f x, g x)
 
 pair f g x = (f x, g x)
@@ -99,6 +102,18 @@ shrink x = nub [ k |-> minimum [ d' | (k',d') <- x , k'==k ] | (k,d) <- x ]
 discard = filter . (not.)
 
 lstr(b,x) = [ (b,a) | a <- x ]
+
+mapfst f = map (f >< id)
+
+mapsnd f = map (id >< f)
+
+--- Sequence rotation -------------------------------------
+
+rotl [] = []
+rotl x = last x : init x
+
+rotr [] = []
+rotr x = tail x ++ [head x]
 
 -----------------
 
@@ -140,6 +155,21 @@ bitflip i x = take (i-1) x ++ aux i (drop (i-1) x) where
 
 --byte2dec [a] = a
 --byte2dec b   = byte2dec(init b) * 2 + last b
+
+--- bitwise operations
+
+_or (0,0) = 0
+_or (0,1) = 1
+_or (1,0) = 1
+_or (1,1) = 1
+
+_and (0,0) = 0
+_and (0,1) = 0
+_and (1,0) = 0
+_and (1,1) = 1
+
+_not 0 = 1
+_not 1 = 0
 
 --- Functional Programming, part II
 
@@ -467,3 +497,7 @@ fase "Pintar" = "Fase 3"
 tempos x = collect $ map (\((a,b),c) -> (a,c)) x
 
 fases x = map (\(a,b) -> (a,concat b)) $ collect $ map (\(a,b) -> (fase a,b)) x
+
+---
+
+done = putStrLn "Ready!"
