@@ -1,6 +1,7 @@
 {
     "codeCellConfig": {
-        "lineNumbers": true
+        "lineNumbers": true,
+        "lineWrap": true
     },
     "defaultCell": "code"
 }
