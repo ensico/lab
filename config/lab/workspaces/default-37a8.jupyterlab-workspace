@@ -5,21 +5,13 @@
         "dock": {
           "type": "tab-area",
           "currentIndex": 0,
-          "widgets": [
-            "notebook:lab-notebook.ipynb",
-          ]
+          "widgets": []
+        },
+        "left-sidebar" : {
+          "collapsed": true 
         },
         "current": "notebook:lab-notebook.ipynb"
       },
-      "left-sidebar": {
-        "collapsed": true,
-        "widgets": [
-          "filebrowser",
-          "running-sessions",
-          "command-palette"
-        ],
-        "current": "filebrowser"
-      }
       "down": {
         "size": 0,
         "widgets": []
