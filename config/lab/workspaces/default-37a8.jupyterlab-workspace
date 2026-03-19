@@ -10,7 +10,7 @@
         "left-sidebar" : {
           "collapsed": true 
         },
-        "current": "notebook:lab-notebook.ipynb"
+        "current": "notebook:index.ipynb"
       },
       "down": {
         "size": 0,
@@ -50,9 +50,9 @@
         ]
       }
     },
-    "notebook:lab-notebook.ipynb": {
+    "notebook:index.ipynb": {
       "data": {
-        "path": "lab-notebook.ipynb",
+        "path": "index.ipynb",
         "factory": "Notebook"
       }
     }
