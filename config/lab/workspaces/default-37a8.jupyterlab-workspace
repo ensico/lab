@@ -5,7 +5,9 @@
         "dock": {
           "type": "tab-area",
           "currentIndex": 0,
-          "widgets": []
+          "widgets": [
+            "notebook:notebooks/lab-notebook.ipynb"
+          ]
         },
         "left-sidebar" : {
           "collapsed": true 
@@ -50,9 +52,9 @@
         ]
       }
     },
-    "notebook:index.ipynb": {
+    "notebook:notebooks/lab-notebook.ipynb": {
       "data": {
-        "path": "index.ipynb",
+        "path": "notebooks/lab-notebook.ipynb",
         "factory": "Notebook"
       }
     }
