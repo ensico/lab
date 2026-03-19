@@ -39,14 +39,14 @@
             "name": "insert-cell-below",
             "args": {},
             "command": "notebook:insert-cell-below",
-            "disabled": true,
+            "disabled": false,
             "icon": "ui-components:add",
             "rank": 50
         },
         {
             "args": {},
             "command": "notebook:delete-cell",
-            "disabled": true,
+            "disabled": false,
             "rank": 50,
             "icon": "ui-components:delete",
             "name": "delete-cell"
