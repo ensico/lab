@@ -11,7 +11,7 @@
             "name": "insert",
             "args": {},
             "command": "notebook:insert-cell-below",
-            "disabled": true,
+            "disabled": false,
             "icon": "ui-components:add",
             "rank": 20
         },
