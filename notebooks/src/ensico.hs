@@ -12,9 +12,11 @@ chunksOf n x = take n x : chunksOf n (drop n x)
 
 --- avoid the genericity of Data.Foldable ----
 
-_length :: [a] -> Int
-_length [] = 0
-_length (_:x) = 1 + _length x
+--_length :: [a] -> Int
+--_length :: (Num b, Foldable t) => t a -> b
+_length x = fromIntegral (length x)
+--_length [] = 0
+--_length (_:x) = 1 + _length x
 
 _maximum [a] = a
 _maximum (a:x) = max a (_maximum x)
