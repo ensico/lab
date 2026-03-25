@@ -10,7 +10,7 @@
           ]
         },
         "left-sidebar" : {
-          "collapsed": true 
+          "collapsed": false 
         },
         "current": "notebook:lab-notebook.ipynb"
       },
