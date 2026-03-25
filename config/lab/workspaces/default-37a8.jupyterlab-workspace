@@ -19,7 +19,7 @@
         "widgets": []
       },
       "left": {
-        "collapsed": true,
+        "collapsed": false,
         "widgets": [
           "filebrowser",
           "jp-property-inspector",
