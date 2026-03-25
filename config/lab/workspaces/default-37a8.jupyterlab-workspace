@@ -10,7 +10,7 @@
           ]
         },
         "left-sidebar" : {
-          "collapsed": false 
+          "collapsed": true 
         },
         "current": "notebook:lab-notebook.ipynb"
       },
@@ -19,7 +19,7 @@
         "widgets": []
       },
       "left": {
-        "collapsed": false,
+        "collapsed": true,
         "widgets": [
           "filebrowser",
           "jp-property-inspector",
