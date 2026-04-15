@@ -3,6 +3,9 @@ module ENSICO where -- (c) Ensico, 12-Jul-24; 01-Out-24
 --import Cp
 import Data.Char
 import Data.List
+import Data.Type.Bool (Not)
+import GHC.Exts (IsList(Item))
+--import Data.Type.Bool (Not)
 
 -- import Data.List.Split
 
@@ -101,7 +104,7 @@ conc = uncurry (++)
 
 shrink x = nub [ k |-> minimum [ d' | (k',d') <- x , k'==k ] | (k,d) <- x ]
 
-discard = filter . (not.)
+discard = filter . (Prelude.not.)
 
 lstr(b,x) = [ (b,a) | a <- x ]
 
@@ -170,8 +173,8 @@ _and (0,1) = 0
 _and (1,0) = 0
 _and (1,1) = 1
 
-_not 0 = 1
-_not 1 = 0
+--_not 0 = 1
+--_not 1 = 0
 
 --- Functional Programming, part II
 
@@ -362,6 +365,19 @@ pap m = unJust . (mT m) where unJust (Just a) = a -- partial inspector of simple
 
 lkp :: Eq a => [(a, t)] -> a -> t
 lkp = pap
+
+--- _Not
+
+class MyNot a where
+   _not :: a -> a
+
+instance MyNot Bool where
+   _not True = False
+   _not False = True
+
+instance MyNot Integer where
+   _not 0 = 1
+   _not 1 = 0
 
 --- divide & conquer
 
