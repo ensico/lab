@@ -3,10 +3,6 @@ module ENSICO where -- (c) Ensico, 12-Jul-24; 01-Out-24
 --import Cp
 import Data.Char
 import Data.List
-import Data.Type.Bool (Not)
-import GHC.Exts (IsList(Item))
---import Data.Type.Bool (Not)
-
 -- import Data.List.Split
 
 chunksOf :: Int -> [a] -> [[a]]
@@ -368,14 +364,14 @@ lkp = pap
 
 --- _Not
 
-class MyNot a where
+class Not a where
    _not :: a -> a
 
-instance MyNot Bool where
+instance Not Bool where
    _not True = False
    _not False = True
 
-instance MyNot Integer where
+instance Not Integer where
    _not 0 = 1
    _not 1 = 0
 
