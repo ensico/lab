@@ -4,7 +4,7 @@ FROM gibiansky/ihaskell
 
 USER root
 
-RUN cabal update && 
+RUN cabal update && \
     cabal install \
     ihaskell-display \
     ihaskell-blaze
