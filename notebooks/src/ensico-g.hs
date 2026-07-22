@@ -3,35 +3,123 @@ module ENSICO.Graphics where
 import Data.Char
 import Data.List
 import System.Process
---import Data.List.Split
 import IHaskell.Display
 
----
-
+--import Data.List.Split
 chunksOf :: Int -> [a] -> [[a]]
 chunksOf n [] = []
 chunksOf n x = take n x : chunksOf n (drop n x)
 
----
+--import Cp
+ap :: (a -> b,a) -> b
+ap = uncurry ($)
 
-data T = N | R | H | VH
-data MBit = M [[Int]] T
+--- PT -> EN (but note EN is not a direct translation of PT!) ----
 
-pinta m = M m H
+readQR = mensagemQR
+
+-- drawQR = desenhaQR_A . mensagemQR_A
+
+drawQR = desenhaQR . mensagemQR
+
+encodeQR s i = (map (c' AP) . ensure 13 $ s) !! (i-1) 
+
 drawing = pinta
-retro m = M m R
-cod2QR z = M (qrcode 0 z) N
-cod2QR' z = M (qrcode' 0 z) N
-cqr2str z = concatMap ((l "A ") . z) [1..13]
-mensagemQR z = concatMap ((l "AP") . z) [1..13]
-str2QR s = cod2QR' . map ((c "A ") . (:[])) $ s ++ concat (replicate n "-") where n = 13 - length s
-desenhaQR s = cod2QR' . map ((c "AP") . (:[])) $ s ++ concat (replicate n "-") where n = 13 - length s
-cifra = map succ
-str2QR'' s = str2QR . cifra $ s
+
+cQR2m z = map z [1..13] 
+
+---------- Really basic ------------------------------------------ 
+
+a |-> b = (a,b)
+
+swap(a,b) = (b,a)
+
+(f >< g)(a,b) = (f a, g b)
+
+x .><. y = [(a,b) | a <- x, b <- y]  -- Cartesian product
 
 _fst (a,_,_) = a
 _snd (_,b,_) = b
 _trd (_,_,c) = c
+
+ensure n =  take n . (++ repeat ' ')
+
+--- transforma, cf. fadas
+
+magic m  = map (map ap . uncurry zip) . zip m
+
+--- composition ---
+
+(|>) = flip ($)
+(>>) = flip (.)
+
+---
+
+troca 0 = 1
+troca 1 = 0
+
+---
+
+mul = uncurry (*)
+
+add = uncurry (+)
+
+--- Binary <-> decimal
+
+bin2dec xs = sum (map (uncurry (*)) (zip (reverse xs) [ 2^i | i <- [0..length xs-1] ]))
+
+dec2bin 0 = [0]
+dec2bin n = dec2bin m ++ [b] where (m,b) = (div n 2, mod n 2)
+
+dec2byte :: Int -> [Int]
+dec2byte = reverse . take 8 . (++zeros) . reverse . dec2bin where zeros = 0:zeros
+
+byte2dec = bin2dec
+
+--- fita perfurada
+
+punchtape x = do { putStrLn ""; mapM pt x ; putStrLn "" }
+   where pt = putStrLn . punchbyte . ensurebyte
+         punchbyte b = "|" ++ map f (take 5 b) ++ "." ++ map f (drop 5 b) ++ "|"
+         f 0 = space ; f 1 = bullet
+         space  = ' '
+         bullet = '\8226'
+         ensurebyte = dec2byte . bin2dec
+
+furafita = punchtape
+
+teletype = furafita . map ascii
+
+--- ENSICO-QR ----------------------------------
+
+mensagemQR z = concatMap ((l AP ) . z) [1..13]
+
+mensagemQR_A z = concatMap ((l A ) . z) [1..13]
+
+desenhaQR s = cod2QR' . map ((c AP ) . (:[])) $ s ++ concat (replicate n "-") where n = 13 - length s
+
+desenhaQR_A s = cod2QR' . map ((c A ) . (:[])) $ s ++ concat (replicate n "-") where n = 13 - length s
+
+data Alpha = A | AP deriving (Eq,Show)
+
+data T = N | R | H | VH deriving (Eq,Show)
+data MBit = M [[Int]] T deriving (Eq,Show)
+
+pinta m = M m H
+
+retro m = M m R
+
+cod2QR z = M (qrcode 0 z) N
+
+cod2QR' z = M (qrcode' 0 z) N
+
+cqr2str z = concatMap ((l A   ) . z) [1..13]
+
+str2QR s = cod2QR' . map ((c A   ) . (:[])) $ s ++ concat (replicate n "-") where n = 13 - length s
+
+cifra = map succ
+
+str2QR'' s = str2QR . cifra $ s
 
 size t = case t of
     H  -> "8"
@@ -46,6 +134,13 @@ doubleBits = concatMap doubleBit
     where doubleBit 0 = [0]--[0,0]
           doubleBit 1 = [1]--[1,1]
           doubleBit _ = []
+
+--- ENSICO QR-code display ----
+
+instance IHaskellDisplay MBit where
+  display bit = return $ Display [html code]
+    where
+    code = draw bit --concat [ draw bit ]
 
 cssR t = cssB where
     cssB 0 = "<td width=\"" ++ (size t) ++ "\" height=\"" ++ (size t) ++ "\" bgcolor=\"" ++ (_fst (color t)) ++ "\"></td>"
@@ -71,10 +166,7 @@ draw' (h:t) r = tr (item r) ++ draw' t r where
         H -> concatMap (cssR H) (doubleBits h)
         VH -> concatMap (cssR VH) (doubleBits . doubleBits $ h)
 
-instance IHaskellDisplay MBit where
-  display bit = return $ Display [html code]
-    where
-    code = draw bit --concat [ draw bit ]
+----
 
 nave n = case n of
     1 ->    [   [0,0,1,0,0,1,0,0],
@@ -184,7 +276,7 @@ l abc c = case c of
     [1,0,0,0] -> "I"
     [1,0,0,1] -> "J"
     _________ -> case abc of
-                     "A " -> case c of
+                     A    -> case c of
                              -- ENSICO-QR
                              [1,0,1,0] -> "L"
                              [1,0,1,1] -> "M"
@@ -194,7 +286,7 @@ l abc c = case c of
                              [1,1,1,1] -> " "
                              _________ -> ""
                              -- ENSICO-QR
-                     "AP" -> case c of
+                     AP   -> case c of
                              [1,0,1,0] -> "K"
                              [1,0,1,1] -> "L"
                              [1,1,0,0] -> "M"
@@ -215,7 +307,7 @@ c' abc l = case l of
     'I' -> [1,0,0,0]
     'J' -> [1,0,0,1]
     ___ -> case abc of
-               "A " -> case l of
+               A    -> case l of
                        -- ENSICO-QR
                        'L' -> [1,0,1,0]
                        'M' -> [1,0,1,1]
@@ -225,7 +317,7 @@ c' abc l = case l of
                        ' ' -> [1,1,1,1]
                        ___ -> [-1,-1,-1,-1]
                        -- ENSICO-QR
-               "AP" -> case l of
+               AP   -> case l of
                        'K' -> [1,0,1,0]
                        'L' -> [1,0,1,1]
                        'M' -> [1,1,0,0]
@@ -246,7 +338,7 @@ c abc l = case l of
     "I" -> [1,0,0,0]
     "J" -> [1,0,0,1]
     ___ -> case abc of
-               "A " -> case l of
+               A    -> case l of
                        -- ENSICO-QR
                        "L" -> [1,0,1,0]
                        "M" -> [1,0,1,1]
@@ -256,7 +348,7 @@ c abc l = case l of
                        " " -> [1,1,1,1]
                        ___ -> [-1,-1,-1,-1]
                        -- ENSICO-QR
-               "AP" -> case l of
+               AP   -> case l of
                        "K" -> [1,0,1,0]
                        "L" -> [1,0,1,1]
                        "M" -> [1,1,0,0]
@@ -363,22 +455,12 @@ g2htm g x y = table t' where
 g2lists g x y = chunksOf (length x) . map (aux g. swap) $ (x .><. y)
      where aux g = (maybe 0 id) . (flip lookup g)
 
----------- Really basic ---------------------- 
+--- rnet = 'recurrent net' usada na adição em binário
 
-a |-> b = (a,b)
-
-swap(a,b) = (b,a)
-
-(f >< g)(a,b) = (f a, g b)
-
-x .><. y = [(a,b) | a <- x, b <- y]  -- Cartesian product
-
---- composition ---
-
-(|>) = flip ($)
-(>>) = flip (.)
-
+rnet :: ((c, (a, b)) -> (c, c), [a], [b], c) -> [c]
+rnet(f,a,b,c)  = (cons . ripple) (zip a b) 
+    where ripple = mapAccumR (curry f) c
+          cons(a,x) = a : x
 ---
-
-troca 0 = 1
-troca 1 = 0
+divmod = uncurry divMod
+---

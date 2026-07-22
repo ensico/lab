@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -XNPlusKPatterns #-}
 
 -- (c) MP-I (1998/9-2006/7) and CP (2005/6-2021/22)
 
