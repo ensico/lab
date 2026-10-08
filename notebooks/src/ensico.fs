@@ -1,8 +1,9 @@
 module ENSICO // (c) ENSICO, 2026.03.07
 
 open System
+open Plotly.NET
 open Microsoft.FSharp.Reflection
-//open Microsoft.DotNet.Interactive.Formatting
+open Microsoft.DotNet.Interactive.Formatting
 
 /// begin | haskell-style functions
  
@@ -26,7 +27,24 @@ let odd n = not (even n)
 let curry f x y = f (x, y)
 let uncurry f (x, y) = f x y
 
-//Formatter.DefaultMimeType <- "text/plain"
+// Pretty-printing for F# types in .NET Interactive
+
+//Formatter.SetPreferredMimeTypesFor(typeof<obj>, "text/plain")
+
+//Formatter.Register((fun (o: obj) -> sprintf "%A" o),mimeType = "text/plain")
+
+Formatter.SetPreferredMimeTypesFor(typeof<System.Collections.IEnumerable>, "text/plain")
+
+Formatter.SetPreferredMimeTypesFor(typeof<System.Tuple<System.Int32,System.Int32,System.Int32>>, "text/plain")
+
+Formatter.Register<System.Collections.IEnumerable>((fun (xs: System.Collections.IEnumerable) (w: System.IO.TextWriter) ->
+    match xs with
+    | :? string as s -> w.Write(sprintf "%A" s)
+    | _ -> let items = [ for x in xs -> sprintf "%A" x ] in w.Write("[" + System.String.Join("; ", items) + "]")), mimeType = "text/plain")
+
+//Formatter.Register<System.Collections.IEnumerable>((fun (xs: System.Collections.IEnumerable) (w: System.IO.TextWriter) -> let items = [ for x in xs -> sprintf "%A" x ] in w.Write("[" + System.String.Join("; ", items) + "]")), mimeType = "text/plain")
+
+// Pretty-print the signature of a function
 
 let printSignature f =
     let t = f.GetType()
@@ -78,6 +96,10 @@ module List =
 
     let maximum = List.max
 
+    let duplicate l = l @ l
+
+    let join l1 l2 = l1 @ l2
+
 module String =
     
     let max (s: string) = s |> Seq.max
@@ -97,5 +119,16 @@ module String =
     let words (s: string) = s.Split([| " " |], System.StringSplitOptions.None) |> Array.toSeq |> Seq.toList
 
     let unwords (s: string list) = String.Join(" ", s)
-    
+
+module Graphics =
+
+    let red r (_,g,b) = (r % 256,g,b)
+
+    let green g (r,_,b) = (r,g % 256,b)
+
+    let blue b (r,g,_) = (r,g,b % 256)
+
+    let draw x = x |> List.chunkBySize 3 |> List.map (List.map (fun (a,b,c) -> [a;b;c])) |> Chart.Image
+
+    let draw' n x = x |> List.chunkBySize n |> List.map (List.map (fun (a,b,c) -> [a;b;c])) |> Chart.Image
 
